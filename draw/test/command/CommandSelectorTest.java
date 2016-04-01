@@ -12,6 +12,7 @@ public class CommandSelectorTest {
     public void selectCorrectCommand() throws InvalidCommandException {
         assertThat(CommandSelector.select("C 1 2"), equalTo(new CanvasCommand("C 1 2")));
         assertThat(CommandSelector.select("L 1 2 3 4"), equalTo(new LineCommand("L 1 2 3 4")));
+        assertThat(CommandSelector.select("R 1 2 3 4"), equalTo(new RectangleCommand("R 1 2 3 4")));
 
     }
 

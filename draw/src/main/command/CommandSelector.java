@@ -7,6 +7,8 @@ public class CommandSelector {
                 return new CanvasCommand(command);
             case "L":
                 return new LineCommand(command);
+            case "R":
+                return new RectangleCommand(command);
         }
 
         throw new InvalidCommandException("This command is not accepted.");

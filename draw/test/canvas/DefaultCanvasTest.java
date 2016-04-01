@@ -48,6 +48,34 @@ public class DefaultCanvasTest {
     }
 
     @Test
+    public void canDrawRectangleToCorrectCell() throws InvalidPointsException {
+        DefaultCanvas canvas = new DefaultCanvas(6, 6);
+
+        int x1 = 2;
+        int y1 = 3;
+
+        int x2 = 4;
+        int y2 = 5;
+
+        canvas.drawRectangle(new Point(x1, y1), new Point(x2, y2));
+        for (int i = 1; i < canvas.drawings.length-1; i++) {
+            for (int j = 1; j < canvas.drawings[i].length-1; j++) {
+
+                boolean isHorizontalLine = (i == y1 && j >= x1 && j <= x2) ||(i == y2 && j >= x1 && j <= x2);
+                boolean isVerticalLine = (j==x1 && i > y1 && i < y2)||(j==x2 && i > y1 && i < y2);
+
+                if(isHorizontalLine || isVerticalLine) {
+                    assertThat("at " + i + "," + j, canvas.drawings[i][j], equalTo('x'));
+                }else{
+                    assertNull("at " + i + "," + j,canvas.drawings[i][j]);
+                }
+
+            }
+        }
+
+    }
+
+    @Test
     public void throwsInvalidPointExceptionWhenLinePointsAreNotForVerticalOrHorizontalLine(){
 
         DefaultCanvas canvas = new DefaultCanvas(5, 5);
@@ -73,5 +101,20 @@ public class DefaultCanvasTest {
         }
 
     }
+
+    @Test
+    public void throwsInvalidPointExceptionWhenRectanglePointsAreOutsideThanCanvas(){
+
+        DefaultCanvas canvas = new DefaultCanvas(5, 5);
+
+        try {
+            canvas.drawRectangle(new Point(1,7), new Point(2,7));
+            fail();
+        } catch (InvalidPointsException e) {
+            assertThat(e.getMessage(), equalTo("You can't draw a rectangle bigger than the canvas."));
+        }
+
+    }
+
 
 }

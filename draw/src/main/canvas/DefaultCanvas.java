@@ -42,11 +42,26 @@ public class DefaultCanvas implements Canvas{
 
             throw new InvalidPointsException(message);
         }
+        fillALine(start, end);
+    }
+
+    private void fillALine(Point start, Point end) {
         for (int i = start.y; i <= end.y; i++) {
             for (int j = start.x; j <= end.x; j++) {
                 drawings[i][j] = 'x';
             }
         }
+    }
+
+    @Override
+    public void drawRectangle(Point start, Point end) throws InvalidPointsException {
+        if(isOutsideCanvasRange(start,end)){
+            throw new InvalidPointsException("You can't draw a rectangle bigger than the canvas.");
+        }
+        fillALine(start, new Point(start.x, end.y));
+        fillALine(start, new Point(end.x, start.y));
+        fillALine(new Point(start.x, end.y), end);
+        fillALine(new Point(end.x, start.y), end);
     }
 
     private void drawHorizontalBoarder() {
