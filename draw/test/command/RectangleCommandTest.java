@@ -57,7 +57,7 @@ public class RectangleCommandTest {
 
     @Test
     public void throwCanvasNotInitialisedExceptionWhenCanvasIsEmpty(){
-        RectangleCommand rectangleCommand = new RectangleCommand("R 1 3.4 hello 4");
+        RectangleCommand rectangleCommand = new RectangleCommand("R 1 3 4 4");
         try {
             rectangleCommand.draw(Optional.empty());
             fail();

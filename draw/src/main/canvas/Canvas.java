@@ -9,4 +9,6 @@ public interface Canvas {
     void drawLine(Point start, Point end) throws InvalidPointsException;
 
     void drawRectangle(Point start, Point end) throws InvalidPointsException;
+
+    void fill(Point point, Character fillColour);
 }

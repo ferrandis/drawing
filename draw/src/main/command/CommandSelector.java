@@ -9,6 +9,8 @@ public class CommandSelector {
                 return new LineCommand(command);
             case "R":
                 return new RectangleCommand(command);
+            case "B":
+                return new FillCommand(command);
         }
 
         throw new InvalidCommandException("This command is not accepted.");

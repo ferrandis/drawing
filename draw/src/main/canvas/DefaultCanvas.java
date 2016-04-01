@@ -64,6 +64,21 @@ public class DefaultCanvas implements Canvas{
         fillALine(new Point(end.x, start.y), end);
     }
 
+    @Override
+    public void fill(Point point, Character fillColour) {
+        if(point.x > width || point.y > height || point.x ==0 || point.y ==0){
+            return;
+        }
+
+        if (drawings[point.y][point.x]!= null) return;
+
+        drawings[point.y][point.x]=fillColour;
+        fill(new Point(point.x-1, point.y), fillColour);
+        fill(new Point(point.x+1, point.y), fillColour);
+        fill(new Point(point.x, point.y-1), fillColour);
+        fill(new Point(point.x, point.y+1), fillColour);
+    }
+
     private void drawHorizontalBoarder() {
         for (int i = 0; i < canvasWidth; i++) {
             drawings[0][i] = '-';
