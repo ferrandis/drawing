@@ -11,6 +11,8 @@ public class CommandSelector {
                 return new RectangleCommand(command);
             case "B":
                 return new FillCommand(command);
+            case "Q":
+                return new QuitCommand(command, () -> System.exit(0));
         }
 
         throw new InvalidCommandException("This command is not accepted.");

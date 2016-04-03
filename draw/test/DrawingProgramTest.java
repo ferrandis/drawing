@@ -117,6 +117,40 @@ public class DrawingProgramTest {
     }
 
     @Test
+    public void canRefill() throws InvalidCommandException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        DrawingProgram drawingProgram = new DrawingProgram(new PrintStream(outputStream));
+        drawingProgram.enterCommand("C 10 4");
+
+        drawingProgram.enterCommand("R 1 2 6 4");
+
+        outputStream.reset();
+
+        drawingProgram.enterCommand("B 2 3 o");
+        String expectedCanvas = "------------\n"
+                + "|          |\n"
+                + "|xxxxxx    |\n"
+                + "|xoooox    |\n"
+                + "|xxxxxx    |\n"
+                + "------------\n";
+
+        assertThat(outputStream.toString(), equalTo(expectedCanvas));
+
+        outputStream.reset();
+
+        drawingProgram.enterCommand("B 2 3 *");
+        expectedCanvas = "------------\n"
+                + "|          |\n"
+                + "|xxxxxx    |\n"
+                + "|x****x    |\n"
+                + "|xxxxxx    |\n"
+                + "------------\n";
+
+        assertThat(outputStream.toString(), equalTo(expectedCanvas));
+
+    }
+
+    @Test
     public void startAndEndPointsShouldContainTheSameXsOrYs() throws InvalidCommandException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         DrawingProgram drawingProgram = new DrawingProgram(new PrintStream(outputStream));

@@ -17,8 +17,17 @@ public class DefaultCanvas implements Canvas{
         canvasHeight = height + 2;
         canvasWidth = width+2;
         drawings = new Character[canvasHeight][canvasWidth];
+        initialiseCanvas();
+    }
+
+    private void initialiseCanvas() {
         drawHorizontalBoarder();
         drawVerticalBoarder();
+        for(int row = 1; row < canvasHeight-1; row++) {
+            for(int cell = 1; cell < canvasWidth-1; cell++) {
+                drawings[row][cell] = ' ';
+            }
+        }
     }
 
     public void drawCanvas(PrintStream printStream) {
@@ -70,7 +79,7 @@ public class DefaultCanvas implements Canvas{
             return;
         }
 
-        if (drawings[point.y][point.x]!= null) return;
+        if (drawings[point.y][point.x].equals(fillColour)|| drawings[point.y][point.x].equals('x')) return;
 
         drawings[point.y][point.x]=fillColour;
         fill(new Point(point.x-1, point.y), fillColour);
